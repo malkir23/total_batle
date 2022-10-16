@@ -1,17 +1,25 @@
-class Start:
-    def __init__(self, a, b):
-        self.a = a
-        self.b = b
+import socket
 
-    def method_one(self):
-        print(self.a + self.b)
 
-def static_f(n):
-    return n ** 2
+def client_program():
+    host = socket.gethostname()  # as both code is running on same pc
+    port = 5000  # socket server port number
 
-test_S = Start(8, 4) #?
-test_S.b #?
-test_S.b = 3
-test_S.b #?
-test_S.b = static_f(test_S.a)
-test_S.b #?
+    client_socket = socket.socket()  # instantiate
+    client_socket.connect((host, port))  # connect to the server
+
+    message = input(" -> ")  # take input
+
+    while message.lower().strip() != 'bye':
+        client_socket.send(message.encode())  # send message
+        data = client_socket.recv(1024).decode()  # receive response
+
+        print('Received from server: ' + data)  # show in terminal
+
+        message = input(" -> ")  # again take input
+
+    client_socket.close()  # close the connection
+
+
+if __name__ == '__main__':
+    client_program()
