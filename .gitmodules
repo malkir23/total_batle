@@ -1,0 +1,3 @@
+[submodule "total_batle_server"]
+	path = total_batle_server
+	url = https://github.com/malkir23/total_batle_server.git
